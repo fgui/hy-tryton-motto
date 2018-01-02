@@ -1,0 +1,47 @@
+<tryton>
+  <data>
+    <record model="ir.ui.view" id="motto_view_tree">
+      <field name="model">motto</field>
+      <field name="type">tree</field>
+      <field name="name">motto_tree</field>
+    </record>
+    <record model="ir.ui.view" id="motto_view_form">
+      <field name="model">motto</field>
+      <field name="type">form</field>
+      <field name="name">motto_form</field>
+    </record>
+    <record model="ir.action.act_window" id="act_motto">
+      <field name="name">Motto Company</field>
+      <field name="res_model">motto</field>
+    </record>
+
+    <record model="ir.action.act_window.view"
+	    id="act_motto_tree">
+      <field name="sequence" eval="10"/>
+      <field name="view" ref="motto_view_tree"/>
+      <field name="act_window" ref="act_motto"/>
+    </record>
+    <record model="ir.action.act_window.view"
+            id="act_motto_form">
+      <field name="sequence" eval="20"/>
+      <field name="view" ref="motto_view_form"/>
+      <field name="act_window" ref="act_motto"/>
+    </record>
+    
+    <menuitem id="menu_motto" sequence="1"
+	      icon="tryton-list" action="act_motto"/>
+
+    <record model="ir.rule.group" id="rule_group_motto">
+      <field name="model" search="[('model', '=', 'motto')]"/>
+      <field name="global_p" eval="True"/>
+    </record>
+    <record model="ir.rule" id="rule_motto1">
+      <field name="domain"
+             eval="[('company', '=', Eval('user', {}).get('company', None))]"
+             pyson="1"/>
+      <field name="rule_group" ref="rule_group_motto"/>
+    </record>
+
+    
+  </data>
+</tryton>
